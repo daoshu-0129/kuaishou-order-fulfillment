@@ -277,6 +277,9 @@ async function platformRequest(url, method, payload) {
 }
 
 app.get('/api/health', (req, res) => res.json({ ok: true, timestamp: now() }));
+app.get('/api/public-config', (req, res) => res.json({
+  icpBeianNumber: safeText(process.env.ICP_BEIAN_NUMBER, 100)
+}));
 app.post('/api/auth/login', (req, res) => {
   if (blockedLogin(req)) return jsonError(res, 429, '登录尝试过多，请 15 分钟后再试');
   const password = String(req.body?.password || '');
