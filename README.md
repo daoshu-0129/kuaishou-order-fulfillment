@@ -39,7 +39,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 | 变量 | 用途 |
 | --- | --- |
 | `KUAISHOU_APP_KEY`、`KUAISHOU_APP_SECRET` | 通过审核的应用凭据 |
-| `KUAISHOU_REDIRECT_URI` | 与开放平台登记信息完全一致的 HTTPS 回调地址，例如 `https://订单域名/api/kuaishou/callback` |
+| `KUAISHOU_REDIRECT_URI` | 与开放平台登记信息完全一致的 HTTPS 回调地址。本项目的生产地址为 `https://zhenggaoxiang.cn/api/kuaishou/callback` |
 | `KUAISHOU_OAUTH_AUTHORIZE_URL`、`KUAISHOU_OAUTH_TOKEN_URL` | 当前应用类型对应的 OAuth 授权与换取令牌地址 |
 | `KUAISHOU_ORDER_LIST_URL` | 已获批的订单查询接口地址 |
 | `KUAISHOU_SHIPMENT_SUBMIT_URL` | 已获批的发货回传接口地址 |
@@ -48,7 +48,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 
 ## 上线建议
 
-1. 代码放在当前私有 GitHub 仓库；应用部署到有持久化磁盘、HTTPS 和可绑定域名的后端服务，而不是 GitHub Pages。
+1. 代码放在当前私有 GitHub 仓库；应用部署到有持久化磁盘、HTTPS 和可绑定域名的后端服务，而不是 GitHub Pages。生产网站地址为 `https://zhenggaoxiang.cn`。
 2. 国内主体使用已备案域名，并将生产域名、回调地址和登记表中的网站地址保持一致。
 3. 将 `DEMO_MODE` 改为 `false`，强密码/会话密钥/令牌加密密钥全部替换为随机值。
 4. 先用快手提供的测试店铺或小批量订单验证“查询 → 导出 → 导入单号 → 回传”闭环，再开启实际发货。
