@@ -9,6 +9,14 @@ const api = async (url, options = {}) => {
 const text = (value) => String(value ?? '').replace(/[&<>"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[char]));
 let orders = [];
 
+async function loadFiling() {
+  try {
+    const { icpBeianNumber } = await api('/api/public-config');
+    if (!icpBeianNumber) return;
+    $('#filing-link').textContent = icpBeianNumber;
+    $('#filing-footer').hidden = false;
+  } catch (_) { /* A filing footer must never prevent the application from loading. */ }
+}
 function message(value, error = false) {
   const node = $('#action-message'); node.textContent = value; node.classList.toggle('error', error);
 }
@@ -74,5 +82,5 @@ $('#connect-shop').addEventListener('click', async () => {
   try { const result = await api('/api/kuaishou/connect'); window.location.assign(result.authorizeUrl); }
   catch (error) { message(error.message, true); }
 });
-loadApp().catch((error) => { $('#login-message').textContent = error.message; });
+loadFiling().finally(() => loadApp().catch((error) => { $('#login-message').textContent = error.message; }));
 
