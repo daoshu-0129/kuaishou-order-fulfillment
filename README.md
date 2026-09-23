@@ -14,6 +14,8 @@
 - 不含真实个人信息的演示订单，便于上线前验收界面和导出流程。
 - Docker 部署文件，适用于具备持久化磁盘的云服务器/容器平台。
 
+备案通过后请使用 [DEPLOYMENT.md](DEPLOYMENT.md) 配置阿里云 ECS、DNS、HTTPS 和 Docker。备案号通过 `ICP_BEIAN_NUMBER` 环境变量显示在网站页脚；该值不属于密钥，可以安全填写在服务器环境变量中。
+
 ## 本地启动
 
 需要 Node.js 20+。
