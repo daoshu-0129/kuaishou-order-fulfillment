@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>快手订单发货助手</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section id="login-view" class="login-card" aria-labelledby="login-title">
+        <div class="brand-mark">KS</div>
+        <p class="eyebrow">订单履约工作台</p>
+        <h1 id="login-title">快手订单发货助手</h1>
+        <p class="muted">仅限已授权管理员使用。订单数据与应用密钥不会存入 GitHub。</p>
+        <form id="login-form">
+          <label>管理员密码<input id="password" name="password" type="password" autocomplete="current-password" required /></label>
+          <button type="submit" class="primary full">登录工作台</button>
+        </form>
+        <p id="login-message" class="message" role="alert"></p>
+      </section>
+
+      <section id="app-view" hidden>
+        <header class="topbar">
+          <div><p class="eyebrow">订单履约工作台</p><h1>快手订单发货助手</h1></div>
+          <div class="topbar-actions"><span id="mode-badge" class="badge">检查中</span><button id="logout" class="ghost">退出</button></div>
+        </header>
+
+        <section id="setup-notice" class="notice" hidden></section>
+        <section class="stat-grid" aria-label="订单统计">
+          <article><span>全部订单</span><strong id="stat-total">–</strong></article>
+          <article><span>待发货</span><strong id="stat-pending">–</strong></article>
+          <article><span>待提交发货</span><strong id="stat-ready">–</strong></article>
+          <article><span>已提交发货</span><strong id="stat-submitted">–</strong></article>
+        </section>
+
+        <section class="panel actions-panel">
+          <div><h2>订单操作</h2><p>同步已授权店铺订单，选择订单后导出；导入物流单号，再提交发货。</p></div>
+          <div class="action-buttons">
+            <button id="connect-shop" class="secondary">授权快手店铺</button>
+            <button id="sync-orders" class="secondary">同步订单</button>
+            <button id="export-orders" class="primary">导出已选订单</button>
+          </div>
+        </section>
+
+        <section class="panel import-panel">
+          <div><h2>导入物流单号</h2><p>粘贴 CSV 内容。表头必须为：<code>orderNo,carrierCode,trackingNo</code>。</p></div>
+          <textarea id="shipment-csv" spellcheck="false" placeholder="orderNo,carrierCode,trackingNo&#10;KS202609230001,YTO,YT123456789"></textarea>
+          <div class="action-buttons"><button id="import-shipments" class="secondary">校验并导入</button><button id="submit-shipments" class="primary">提交待发货单</button></div>
+          <p id="action-message" class="message" role="status"></p>
+        </section>
+
+        <section class="panel">
+          <div class="table-header"><div><h2>订单列表</h2><p class="muted">买家信息仅用于履约，请按最小权限原则使用和保留。</p></div><div class="filters"><input id="search" placeholder="订单号或买家昵称" /><select id="status-filter"><option value="">全部状态</option><option value="待发货">待发货</option><option value="已发货">已发货</option></select><button id="reload" class="ghost">刷新</button></div></div>
+          <div class="table-wrap"><table><thead><tr><th><input id="select-all" type="checkbox" aria-label="全选" /></th><th>订单</th><th>商品</th><th>收货信息</th><th>金额</th><th>状态</th><th>物流</th></tr></thead><tbody id="orders-body"></tbody></table></div>
+        </section>
+      </section>
+    </main>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
+
