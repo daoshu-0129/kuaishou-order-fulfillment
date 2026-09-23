@@ -10,19 +10,23 @@
 
 ## 2. 连接并准备服务器
 
-在 ECS 控制台点击实例的“连接”，通过 Workbench 以普通管理员账号登录。以下命令以 Ubuntu 22.04/24.04 为例：
+在 ECS 控制台点击实例的“连接”，通过 Workbench 登录。你购买页选择的是 **Alibaba Cloud Linux 3**；如实际系统不同，请先执行 `cat /etc/os-release` 再停止并告诉我，不要混用包管理命令。
 
 ```bash
-sudo apt-get update
-sudo apt-get install -y git docker.io docker-compose-v2
+sudo dnf -y install git wget
+sudo wget -O /etc/yum.repos.d/docker-ce.repo http://mirrors.cloud.aliyuncs.com/docker-ce/linux/centos/docker-ce.repo
+sudo sed -i 's|https://mirrors.aliyun.com|http://mirrors.cloud.aliyuncs.com|g' /etc/yum.repos.d/docker-ce.repo
+sudo dnf -y install dnf-plugin-releasever-adapter --repo alinux3-plus
+sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo systemctl enable --now docker
 sudo usermod -aG docker $USER
 exit
 ```
 
-重新通过 Workbench 登录后执行：
+重新通过 Workbench 登录后，先确认 Docker 已安装，然后执行：
 
 ```bash
+docker compose version
 git clone https://github.com/daoshu-0129/kuaishou-order-fulfillment.git
 cd kuaishou-order-fulfillment
 cp .env.example .env
